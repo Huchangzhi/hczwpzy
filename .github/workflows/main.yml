@@ -20,16 +20,18 @@ jobs:
 
     - name: Install dependencies
       run: npm install -g nativefier
+
     - name: get ico
       run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/huchangzhi/pdf.js/main/ico.ico" -OutFile "ico.ico"
+
     - name: Build Hcz网盘
       run: nativefier --name "Hcz网盘" --icon "./ico.ico" --platform windows --arch x64 -e 22.0.0 "https://hczwp3.xn--920a.fun"
 
     - name: Package Hcz网盘
-      run: tar -cf Hcz网盘.tar ./Hcz网盘-win32-x64
+      run: Compress-Archive -Path "./Hcz网盘-win32-x64" -DestinationPath "Hcz网盘.zip"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: Hcz网盘
-        path: Hcz网盘.tar
+        path: Hcz网盘.zip

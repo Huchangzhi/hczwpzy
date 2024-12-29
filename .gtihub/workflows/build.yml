@@ -1,0 +1,35 @@
+name: Build and Package Hcz网盘
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install -g nativefier
+    - name: get ico
+      run: wget https://raw.githubusercontent.com/huchangzhi/pdf.js/main/ico.ico
+    - name: Build Hcz网盘
+      run: nativefier --name "Hcz网盘" --icon "./ico.ico" --platform windows --arch x64 -e 22.0.0 "https://hczwp3.xn--920a.fun"
+
+    - name: Package Hcz网盘
+      run: tar -cf Hcz网盘.tar ./Hcz网盘-win32-x64
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Hcz网盘
+        path: Hcz网盘.tar

@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #ff0000;
+		background: red;
 		overflow: hidden;
 	}
 

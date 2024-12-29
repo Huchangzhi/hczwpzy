@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: npm install -g nativefier
     - name: get ico
-      run: wget https://raw.githubusercontent.com/huchangzhi/pdf.js/main/ico.ico
+      run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/huchangzhi/pdf.js/main/ico.ico" -OutFile "ico.ico"
     - name: Build Hcz网盘
       run: nativefier --name "Hcz网盘" --icon "./ico.ico" --platform windows --arch x64 -e 22.0.0 "https://hczwp3.xn--920a.fun"
 

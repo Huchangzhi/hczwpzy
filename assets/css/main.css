@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: red;
+		background: rgba(119, 179, 248, 0.486);
 		overflow: hidden;
 	}
 
@@ -99,7 +99,7 @@ input, select, textarea {
 		}
 
 	body, input, select, textarea {
-		color: #ff0000;
+		color: #8a9af842;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 15pt;
 		font-weight: 300 !important;
@@ -226,7 +226,7 @@ input, select, textarea {
 		transform: translate3d(0,0,0);
 	/* Set your background with this */
 
-		background: #ff0223 url("images/bg.jpg") bottom left;
+		background: #7faef3ab url("images/bg.jpg") bottom left;
 		background-repeat: repeat-x;
 		height: 100%;
 		left: 0;

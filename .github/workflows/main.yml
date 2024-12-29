@@ -29,7 +29,7 @@ jobs:
       run: tar -cf Hcz网盘.tar ./Hcz网盘-win32-x64
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Hcz网盘
         path: Hcz网盘.tar

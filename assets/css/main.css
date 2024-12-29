@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: rgba(119, 179, 248, 0.486);
+		background: rgba(255, 255, 255, 0.486);
 		overflow: hidden;
 	}
 
@@ -99,7 +99,7 @@ input, select, textarea {
 		}
 
 	body, input, select, textarea {
-		color: #000000;
+		color: #ffa600;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 15pt;
 		font-weight: 300 !important;

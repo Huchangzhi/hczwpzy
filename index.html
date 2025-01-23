@@ -32,7 +32,7 @@
         }
 
         const url = urls[currentUrlIndex];
-        fetch(url, { method: 'HEAD', mode: 'no-cors' })
+        fetch(url, { method: 'HEAD' })
         .then(response => {
             if (response.ok) {
                 window.location.href = url;

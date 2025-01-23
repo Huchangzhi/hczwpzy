@@ -1,48 +1,53 @@
-<!DOCTYPE HTML>
-<!--
-	Aerial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Hcz的网盘</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-		<div id="wrapper">
-			<div id="bg"></div>
-			<div id="overlay"></div>
-			<div id="main">
+<head>
+<title>正在寻找最快线路</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 24px;
+  }
+</style>
+</head>
+<body>
+  <div id="status">正在寻找最快线路，请稍等...</div>
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Hcz的网盘</h1>
-						<h2>祝大家2025快乐</h2>
-						<p>在线使用 &nbsp;&bull;&nbsp; windows客户端 &nbsp;&bull;&nbsp; 网盘源代码</p>
-						<nav>
-							<ul>
-                                <li><a href="https://hczwp2.胡.fun" class="icon solid fa-link"><span class="label">URL</span></a></li>
-                                <li><a href="https://hczwp2.xn--920a.fun/d/lanzou/%E5%B7%A5%E5%85%B7/Hcz%E7%BD%91%E7%9B%98-win32-x64.exe?sign=-GtH1_cSfCIweIv5JqDnS0Frl2SdPSgub9jdciCim9s=:0" class="icon brands fa-windows"><span class="label">Windows</span></a></li>
-                                <li><a href="https://github.com/AlistGo/alist" class="icon brands fa-github"><span class="label">Github</span></a></li>
-                            </ul>
-						</nav>
-					</header>
+  <script>
+    const urls = [
+      "https://hczwp4.胡.fun",
+      "https://hczwp3.胡.fun",
+      "https://hczwp2.胡.fun"
+    ];
 
-				<!-- Footer -->
-					<!-- <footer id="footer">
-						<span class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>.</span>
-					</footer> -->
+    let currentUrlIndex = 0;
 
-			</div>
-		</div>
-		<script>
-			window.onload = function() { document.body.classList.remove('is-preload'); }
-			window.ontouchmove = function() { return false; }
-			window.onorientationchange = function() { document.body.scrollTop = 0; }
-		</script>
-	</body>
+    function checkUrl() {
+        if (currentUrlIndex >= urls.length) {
+            window.location.href = 'index2.html';
+            return;
+        }
+
+        const url = urls[currentUrlIndex];
+        fetch(url, { method: 'HEAD', mode: 'no-cors' })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = url;
+            } else {
+                currentUrlIndex++;
+                checkUrl();
+            }
+        })
+        .catch(error => {
+            currentUrlIndex++;
+            checkUrl();
+        });
+    }
+
+    checkUrl();
+  </script>
+</body>
 </html>

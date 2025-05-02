@@ -18,7 +18,7 @@
 
   <script>
     const urls = [
-      "https://hczwp5.xn--920a.fun/s/eaIY",
+      "https://hczwp5.xn--920a.fun/home?path=cloudreve%3A%2F%2FeaIY%40share",
       "https://hczwp3.胡.fun",
       "https://hczwp2.胡.fun"
     ];
@@ -27,29 +27,38 @@
   
     function checkUrl() {
       if (currentUrlIndex >= urls.length) {
-        window.location.href = 'index2.html';
+        window.location.href = 'index2.html'; // 所有链接都不可用时跳转
         return;
       }
   
       const url = urls[currentUrlIndex];
   
-      // 使用 <a> 标签模拟点击，触发浏览器跳转
-      const link = document.createElement('a');
-      link.href = url;
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click(); // 模拟点击，触发跳转
+      // 创建一个用于超时的 Promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('请求超时')), 5000);
+      });
   
-      // 如果跳转失败（例如页面未加载），5秒后尝试下一个
-      setTimeout(() => {
-        document.body.removeChild(link);
-        currentUrlIndex++;
-        checkUrl();
-      }, 5000);
+      // 发起 GET 请求
+      fetch(url, { method: 'GET', mode: 'cors' })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = url; // 成功则跳转
+          } else {
+            console.log(`响应失败: ${url} - 状态码: ${response.status}`);
+            currentUrlIndex++;
+            checkUrl(); // 响应失败，尝试下一个
+          }
+        })
+        .catch(error => {
+          console.error(`请求失败: ${url} - 错误: ${error.message}`);
+          currentUrlIndex++;
+          checkUrl(); // 请求失败（网络错误、超时等），尝试下一个
+        });
     }
   
     checkUrl();
   </script>
+  
   
   
   

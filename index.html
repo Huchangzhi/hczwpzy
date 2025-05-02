@@ -1,53 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<title>正在寻找最快线路</title>
-<style>
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-size: 24px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <title>正在寻找最快线路</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body>
-  <div id="status">正在寻找最快线路，请稍等...</div>
+    <div id="status">正在寻找最快线路，请稍等...</div>
 
-  <script>
-    const urls = [
-      "https://hczwp5.xn--920a.fun/home?path=cloudreve%3A%2F%2FeaIY%40share",
-      "https://hczwp3.胡.fun",
-      "https://hczwp2.胡.fun"
-    ];
+    <script>
+        // 图片 URL（第一个要检测的 URL）
+        const imageUrl = "https://hczwp5.xn--920a.fun/f/oMIQ/%E4%B8%8B%E8%BD%BD.png";
 
-    let currentUrlIndex = 0;
+        // 其他备用 URL（非图片资源）
+        const fallbackUrls = [
+            "https://hczwp3.胡.fun",
+            "https://hczwp2.胡.fun"
+        ];
 
-    function checkUrl() {
-        if (currentUrlIndex >= urls.length) {
-            window.location.href = 'index2.html';
-            return;
+        let currentUrlIndex = 0;
+
+        // 使用 <img> 标签检测图片 URL 可用性
+        function checkImageUrl(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);  // 加载成功
+                img.onerror = () => resolve(false); // 加载失败
+                img.src = url + '?t=' + Date.now(); // 防止缓存
+            });
         }
 
-        const url = urls[currentUrlIndex];
-        fetch(url, { method: 'HEAD' })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = url;
-            } else {
-                currentUrlIndex++;
-                checkUrl();
-            }
-        })
-        .catch(error => {
-            currentUrlIndex++;
-            checkUrl();
-        });
-    }
+        // 使用 fetch 检测非图片 URL（注意：可能触发 CORS 限制）
+        function checkNormalUrl(url) {
+            return fetch(url, { method: 'HEAD', mode: 'no-cors' })
+                .then(() => true)
+                .catch(() => false);
+        }
 
-    checkUrl();
-  </script>
+        // 主检测逻辑
+        async function checkUrl() {
+            // 1. 检查第一个图片 URL
+            const isImageAvailable = await checkImageUrl(imageUrl);
+            if (isImageAvailable) {
+                window.location.href = "https://hczwp5.xn--920a.fun/home?path=cloudreve%3A%2F%2FeaIY%40share";
+                return;
+            }
+
+            // 2. 图片不可用，尝试备用 URL
+            while (currentUrlIndex < fallbackUrls.length) {
+                const url = fallbackUrls[currentUrlIndex];
+                const isAvailable = await checkNormalUrl(url);
+                if (isAvailable) {
+                    window.location.href = url;
+                    return;
+                }
+                currentUrlIndex++;
+            }
+
+            // 3. 所有 URL 均不可用，跳转到 index2.html
+            window.location.href = 'index2.html';
+        }
+
+        // 启动检测
+        checkUrl();
+    </script>
 </body>
 </html>
